@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="scripts/info-message.js"></script>  
+    <!--<script src="scripts/highlight.js"></script>-->
+  </head>
+  <body>
+    
+    <script>
+        AFRAME.registerComponent('change-color-on-hover', {
+        schema: {
+          color: {default: 'red'}
+        },
+
+        init: function () {
+          var data = this.data;
+          var el = this.el;  // <a-box>
+          var defaultColor = el.getAttribute('material').color;
+
+          el.addEventListener('mouseenter', function () {
+            el.setAttribute('color', data.color);
+          });
+
+          el.addEventListener('mouseleave', function () {
+            el.setAttribute('color', defaultColor);
+          });
+        }
+      });
+    </script>
+    
+    <a-scene 
+            background="color: #FFFFFF"
+            cursor="rayOrigin: mouse; fuse: false" raycaster="objects: .raycastable"
+            info-message="htmlSrc: #messageText">  
+      
+          
+      <a-asset-item id="messageText" src="text/info-message.html"></a-asset-item>
+
+      <a-cylinder id="yellow" position="1 0.75 -4" radius="0.5" height="1.5" color="#FFC65D" change-color-on-hover="color: blue">
+                  </a-cylinder>
+      <a-cylinder id="red" position="-1 0.75 -2.5" radius="0.5" height="1.5" color="#EF2D5E"></a-cylinder>
+
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      
+      <a-text font="kelsonsans" value="Hello World" width="6" position="-1 2.5 -1.5" rotation="0 0 0" text=""></a-text>
+      
+      <a-entity id="ManagerLabel"
+            position="-0.5 1.5 -2.5"
+            text="shader: msdf; width: 1.5; font: https://cdn.aframe.io/examples/ui/Viga-Regular.json; color: black; value: Line Manager"></a-entity>
+      
+      <a-entity id="EmployeeLabel"
+            position="1.5 1.5 -4"
+            text="shader: msdf; width: 1.5; font: https://cdn.aframe.io/examples/ui/Viga-Regular.json; color: black; value: Employee"></a-entity>
+    <a-camera>
+      <a-cursor></a-cursor>
+    </a-camera>
+      
+    </a-scene>
+    
+    
+    <!--<script>
+        var cilinders = document.querySelectorAll(".a-cylynder");
+    
+        for (var i=0, len=cilinders.length|0; i<len; i=i+1|0) {
+            cilinders[i];
+        }
+    </script>-->
+  </body>
+</html>
